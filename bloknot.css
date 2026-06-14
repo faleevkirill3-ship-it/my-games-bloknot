@@ -167,52 +167,41 @@ tr:hover {
     margin-top: 2px;
     text-transform: none;
 }
+/* Принудительная адаптация для мобильных устройств */
 @media (max-width: 768px) {
-    /* Общий сброс для всех отступов */
-    body, .container, main, table, tr, td, th {
+    /* Растягиваем всё на 100% ширины */
+    body, html, .container, main {
+        width: 100vw !important;
+        max-width: 100vw !important;
         margin: 0 !important;
-        padding: 2px !important;
-        box-sizing: border-box !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
     }
 
-    /* Делаем таблицу плотной */
+    /* Таблица: убираем лишние поля и сжимаем колонки */
     table {
         width: 100% !important;
         table-layout: fixed !important;
+        border-collapse: collapse !important;
     }
 
-    /* Каждая строка таблицы теперь — это гибкий контейнер */
     tr {
         display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
         width: 100% !important;
-        border-bottom: 1px solid #333;
+        align-items: center !important;
+        border-bottom: 1px solid #444 !important;
+        padding: 4px 0 !important;
     }
 
-    /* Настройка колонок для плотного прилегания */
-    td:nth-child(1), th:nth-child(1) {
-        width: 50% !important; /* Название миссии */
-        text-align: left;
-        overflow: hidden;
-    }
+    /* Колонки: Название (50%), Значение (15%), Кнопки (35%) */
+    td:nth-child(1), th:nth-child(1) { width: 50% !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px !important; }
+    td:nth-child(2), th:nth-child(2) { width: 15% !important; text-align: center !important; font-size: 13px !important; }
+    td:nth-child(3), th:nth-child(3) { width: 35% !important; display: flex !important; justify-content: flex-end !important; }
 
-    td:nth-child(2), th:nth-child(2) {
-        width: 15% !important; /* Цифра */
-        text-align: center;
-    }
-
-    td:nth-child(3), th:nth-child(3) {
-        width: 35% !important; /* Кнопки */
-        text-align: right;
-        display: flex !important;
-        justify-content: flex-end;
-    }
-
-    /* Компактные кнопки */
+    /* Кнопки: делаем их максимально узкими и плотными */
     td button {
         padding: 2px 4px !important;
         font-size: 11px !important;
-        margin: 1px !important;
+        margin: 0 1px !important;
     }
 }
