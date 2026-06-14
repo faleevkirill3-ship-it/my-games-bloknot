@@ -168,64 +168,51 @@ tr:hover {
     text-transform: none;
 }
 @media (max-width: 768px) {
-    /* Перестраиваем блоки один под другой */
-    body, .container, main { 
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        padding: 0 !important;
+    /* Общий сброс для всех отступов */
+    body, .container, main, table, tr, td, th {
         margin: 0 !important;
+        padding: 2px !important;
+        box-sizing: border-box !important;
     }
 
-    /* Верхнее меню с играми */
-    .sidebar, aside, [id*="sidebar"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box;
-        padding: 10px !important;
-    }
-
-    /* Основной блок с контентом */
-    .content, section, [id*="content"] {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box;
-        padding: 8px !important;
-    }
-
-    /* Наводим порядок в таблице, чтобы она не растягивалась */
+    /* Делаем таблицу плотной */
     table {
         width: 100% !important;
-        table-layout: fixed !important; /* Принудительно заставляем таблицу втиснуться в экран */
-        border-collapse: collapse !important;
+        table-layout: fixed !important;
     }
 
-    /* Настраиваем ширину колонок для вкладок с кнопками (Всегда / Счётчики) */
-    th, td {
-        padding: 6px 4px !important; /* Уменьшаем внутренние отступы, чтобы экономить место */
-        font-size: 14px !important;  /* Слегка уменьшаем шрифт для мобилок */
-        word-break: break-word !important; /* Если название миссии длинное, оно перенесётся на новую строку, а не растянет таблицу */
+    /* Каждая строка таблицы теперь — это гибкий контейнер */
+    tr {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        border-bottom: 1px solid #333;
     }
 
-    /* Распределяем место в таблице на 3 колонки */
-    table tr th:nth-child(1), table tr td:nth-child(1) { width: 45% !important; text-align: left; } /* Колонка МИССИИ */
-    table tr th:nth-child(2), table tr td:nth-child(2) { width: 15% !important; text-align: center; } /* Колонка ЗНАЧЕНИЕ */
-    table tr th:nth-child(3), table tr td:nth-child(3) { width: 40% !important; text-align: center; } /* Колонка УПРАВЛЕНИЕ */
+    /* Настройка колонок для плотного прилегания */
+    td:nth-child(1), th:nth-child(1) {
+        width: 50% !important; /* Название миссии */
+        text-align: left;
+        overflow: hidden;
+    }
 
-    /* Делаем кнопки покомпактнее, чтобы они встали в один ряд и не улетали */
+    td:nth-child(2), th:nth-child(2) {
+        width: 15% !important; /* Цифра */
+        text-align: center;
+    }
+
+    td:nth-child(3), th:nth-child(3) {
+        width: 35% !important; /* Кнопки */
+        text-align: right;
+        display: flex !important;
+        justify-content: flex-end;
+    }
+
+    /* Компактные кнопки */
     td button {
-        padding: 4px 6px !important;
-        font-size: 12px !important;
-        margin: 2px 1px !important;
-        display: inline-block !important;
-    }
-
-    /* Специально для чекбоксов в календаре (День / Час), чтобы они были крупными и по центру */
-    input[type="checkbox"] {
-        width: 22px !important;
-        height: 22px !important;
-        cursor: pointer;
-        display: block !important;
-        margin: 0 auto !important; /* Центрируем галочку */
+        padding: 2px 4px !important;
+        font-size: 11px !important;
+        margin: 1px !important;
     }
 }
