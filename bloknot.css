@@ -167,15 +167,17 @@ tr:hover {
     margin-top: 2px;
     text-transform: none;
 }
-/* Специальные правила, которые сработают ТОЛЬКО на экранах мобилок */
 @media (max-width: 768px) {
-    /* Перестраиваем контейнер: теперь левое меню и правая таблица будут идти друг за другом сверху вниз, а не сжиматься в ряд */
+    /* Перестраиваем блоки один под другой */
     body, .container, main { 
         display: flex !important;
         flex-direction: column !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    /* Меню с играми теперь занимает всю ширину экрана сверху */
+    /* Верхнее меню с играми */
     .sidebar, aside, [id*="sidebar"] {
         width: 100% !important;
         max-width: 100% !important;
@@ -183,12 +185,47 @@ tr:hover {
         padding: 10px !important;
     }
 
-    /* Таблица с квестами опускается под меню и разворачивается на всю ширину, чтобы кнопкам было просторно */
-    .content, section, table, [id*="content"] {
+    /* Основной блок с контентом */
+    .content, section, [id*="content"] {
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box;
-        padding: 10px !important;
-        overflow-x: auto; /* Если таблица всё же широкая, её можно будет аккуратно скроллить пальцем влево-вправо */
+        padding: 8px !important;
+    }
+
+    /* Наводим порядок в таблице, чтобы она не растягивалась */
+    table {
+        width: 100% !important;
+        table-layout: fixed !important; /* Принудительно заставляем таблицу втиснуться в экран */
+        border-collapse: collapse !important;
+    }
+
+    /* Настраиваем ширину колонок для вкладок с кнопками (Всегда / Счётчики) */
+    th, td {
+        padding: 6px 4px !important; /* Уменьшаем внутренние отступы, чтобы экономить место */
+        font-size: 14px !important;  /* Слегка уменьшаем шрифт для мобилок */
+        word-break: break-word !important; /* Если название миссии длинное, оно перенесётся на новую строку, а не растянет таблицу */
+    }
+
+    /* Распределяем место в таблице на 3 колонки */
+    table tr th:nth-child(1), table tr td:nth-child(1) { width: 45% !important; text-align: left; } /* Колонка МИССИИ */
+    table tr th:nth-child(2), table tr td:nth-child(2) { width: 15% !important; text-align: center; } /* Колонка ЗНАЧЕНИЕ */
+    table tr th:nth-child(3), table tr td:nth-child(3) { width: 40% !important; text-align: center; } /* Колонка УПРАВЛЕНИЕ */
+
+    /* Делаем кнопки покомпактнее, чтобы они встали в один ряд и не улетали */
+    td button {
+        padding: 4px 6px !important;
+        font-size: 12px !important;
+        margin: 2px 1px !important;
+        display: inline-block !important;
+    }
+
+    /* Специально для чекбоксов в календаре (День / Час), чтобы они были крупными и по центру */
+    input[type="checkbox"] {
+        width: 22px !important;
+        height: 22px !important;
+        cursor: pointer;
+        display: block !important;
+        margin: 0 auto !important; /* Центрируем галочку */
     }
 }
