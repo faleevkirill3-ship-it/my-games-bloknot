@@ -167,3 +167,28 @@ tr:hover {
     margin-top: 2px;
     text-transform: none;
 }
+/* Специальные правила, которые сработают ТОЛЬКО на экранах мобилок */
+@media (max-width: 768px) {
+    /* Перестраиваем контейнер: теперь левое меню и правая таблица будут идти друг за другом сверху вниз, а не сжиматься в ряд */
+    body, .container, main { 
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Меню с играми теперь занимает всю ширину экрана сверху */
+    .sidebar, aside, [id*="sidebar"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        padding: 10px !important;
+    }
+
+    /* Таблица с квестами опускается под меню и разворачивается на всю ширину, чтобы кнопкам было просторно */
+    .content, section, table, [id*="content"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        padding: 10px !important;
+        overflow-x: auto; /* Если таблица всё же широкая, её можно будет аккуратно скроллить пальцем влево-вправо */
+    }
+}
