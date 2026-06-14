@@ -196,5 +196,8 @@ tr:hover {
     th, td {
         padding: 8px 4px !important; /* Сжимаем отступы */
         font-size: 0.85rem !important;
-    }
+    }/* Принудительно задаем ширину колонок в таблице */
+    table td:nth-child(1), table th:nth-child(1) { width: 40% !important; text-align: left !important; }
+    table td:nth-child(2), table th:nth-child(2) { width: 15% !important; text-align: center !important; }
+    table td:nth-child(3), table th:nth-child(3) { width: 45% !important; text-align: right !important; }
 }
