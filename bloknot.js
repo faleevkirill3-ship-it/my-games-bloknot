@@ -2,10 +2,56 @@
 // 1. НАСТРОЙКА ИГР И МИССИЙ (БАЗА ДАННЫХ)
 // ==========================================
 const gameData = {
-    "Stardew Valley": {
-        daily: ["Собрать капусту", "Собрать тыкву", "Полить огурцы", "Погладить кота"],
-        hourly: ["Собрать кабачок", "Проверить улей"],
-        counters:["Собрать кабачок", "Проверить улей"]
+    "GTAV RP": {
+        daily: [
+                  "3 часа в онлайне 2/4 BP",
+                  "Нули в казино 2/4 BP",
+                  "Ставка в казино (межсерверное колесо) 3/6BP",
+                  "Сыграть в мафию в казино 3/6 BP",
+                  "Выиграть гонку в картинге 1/2 BP",
+                  "Проехать 1 уличную гонку (1000$) 1/2 BP",
+                  "25 действий на стройке 2/4 BP",
+                  "25 действий в порту 2/4 BP",
+                  "25 действий в шахте 2/4 BP",
+                  "10 действий на ферме  1/2 BP",
+                  "Потушить 25 \"огоньков\" пожарным 1/2 BP",
+                  "2 круга на автобусе 2/4 BP",
+                  "Выполнить 3 дальнобойщиком (в бизнес или порт) 2/4 BP",
+                  "20 подходов в зале 1/2 BP",
+                  "Победа в тире 1/2 BP",
+                  "10 посылок на почте 1/2 BP",
+                  "Арендовать киностудию 2/4 BP",
+                  "Добавить 5 видео в кинотеатре 1/2 BP",
+                  "Выкопать 1 сокровище 1/2 BP",
+                  "5 раз снять 100% шкуру животных 2/4 BP",
+                  "Поймать 20 рыб 4/8 BP",
+                  "Поймать золотую рыбку 10/10 BP",
+                  "Купить лотерейный билет 1/2 BP",
+                  "Посетить любой сайт 1/2 BP",
+                  "Зайти в Brawl 1/2 BP",
+                  "Поставить лайк в Match 1/2 BP",
+                  "Кинуть мяч питомцу 15 раз 2/4 BP",
+                  "15 выполненных питомцем команд 2/4 BP",
+                  "Проехать 1 станцию на метро 2/4 BP",
+                  "Выполнить 2 квеста клубов 4/8 BP",
+                  "Починить деталь в автосервисе 1/2 BP",
+                  "Забросить 2 мяча в баскетболе 1/2 BP",
+                  "Забить 2 гола в футболе 1/2",
+                  "Победить в дартс 1/2 BP",
+                  "Поиграть 1 минуту в волейбол 1/2 BP",
+                  "Поиграть 1 минуту в настольный теннис 1/2 BP",
+                  "Поиграть 1 минуту в большой теннис 1/2 BP",
+                  "Победить в армрестлинге 1/2 BP",
+                  "Выиграть 5 игр в тренировочном комплексе ставкой (от 100$) 1/2 BP",
+                  "Выиграть 3 любых игры на арене ставкой (от 100$) 1/2 BP*", 
+                  "3 победы в Дэнс Баттлах 2/4 BP",
+                  "Принять участие в 2 аирдропах 4/8",
+                  "Сделать платеж по лизингу 1/2 BP",
+                  "Посадить траву в теплице 4/8 BP",
+                  "Запустить переработку обезболивающих в лаборатории 4/8 BP",
+],
+        hourly: ["тир", "pochta"],
+        counters:["лотерея","pochta","пропускать BP","миссии пропуска"]
     },
     "Genshin Impact": {
         daily: ["Дейлики (4 шт)", "Потратить густую смолу", "Экспедиции Катерины"],
@@ -128,12 +174,24 @@ function renderTable() {
             tdValue.innerText = historyLog[cellId];
             tr.appendChild(tdValue);
             
-            const tdControls = document.createElement('td');
-            tdControls.style.textAlign = 'center';
+           const tdControls = document.createElement('td');
+        tdControls.style.textAlign = 'center';
+
+            // Проверяем, содержит ли название миссии слово "пропуска" (или "пропуск")
+           if (mission.toLowerCase().includes('пропуск')) {
+            // Для миссий пропуска добавляем кнопку сброса с большим отступом слева (margin-left: 25px)
+            tdControls.innerHTML = `
+                <button onclick="changeCounter('${cellId}', -1)" style="padding: 2px 10px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">-1</button>
+                <button onclick="changeCounter('${cellId}', 1)" style="padding: 2px 10px; background: #2ecc71; color: white; border: none; border-radius: 4px; cursor: pointer;">+1</button>
+                <button onclick="resetCounter('${cellId}')" style="padding: 2px 10px; margin-left: 300px; background: #34495e; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄</button>
+            `;
+            } else {
+            // Для всех остальных обычных счетчиков оставляем только две кнопки
             tdControls.innerHTML = `
                 <button onclick="changeCounter('${cellId}', -1)" style="padding: 2px 10px; margin-right: 5px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">-1</button>
                 <button onclick="changeCounter('${cellId}', 1)" style="padding: 2px 10px; background: #2ecc71; color: white; border: none; border-radius: 4px; cursor: pointer;">+1</button>
             `;
+              }
             tr.appendChild(tdControls);
             tableBody.appendChild(tr);
         });
@@ -202,4 +260,13 @@ function changeCounter(cellId, delta) {
         valueElement.innerText = historyLog[cellId];
     }
     saveData();
+}
+function resetCounter(cellId) {
+        historyLog[cellId] = 0;
+        const valueElement = document.getElementById(`val_${cellId}`);
+        if (valueElement) {
+            valueElement.innerText = 0;
+        }
+        saveData();
+    
 }
