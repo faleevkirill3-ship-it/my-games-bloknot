@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloknotik</title>
+    <link rel="stylesheet" href="bloknot.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>📁 ИГРЫ</h2>
+        <ul class="folder-list" id="folderList"></ul>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Поиск...">
+            
+            <div class="type-switch">
+                <button class="type-btn active" id="btnDaily" onclick="switchType('daily')">День</button>
+                <button class="type-btn" id="btnHourly" onclick="switchType('hourly')">Час</button>
+               <button id="btnCounters" class="type-btn" onclick="switchType('counters')">Всегда</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="trackerTable">
+                <thead>
+                    <tr id="tableHeader">
+                        </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="bloknot.js"></script>
+</body>
+</html>
