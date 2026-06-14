@@ -167,11 +167,34 @@ tr:hover {
     margin-top: 2px;
     text-transform: none;
 }
-/* Принудительная адаптация для мобильных устройств */
+/* Исправленная адаптация */
 @media (max-width: 768px) {
-    .container { flex-direction: column; }
-    
-    /* Добавь вот эту часть: */
-    table { width: 100% !important; table-layout: fixed; }
-    td:nth-child(2), td:nth-child(3) { width: 20% !important; }
+    body {
+        flex-direction: column !important;
+        height: auto !important;
+        overflow-y: auto !important; /* Даем странице прокручиваться */
+    }
+
+    .sidebar {
+        width: 100% !important;
+        padding: 10px !important;
+    }
+
+    .main-content {
+        padding: 10px !important;
+    }
+
+    .table-container {
+        overflow-x: auto !important; /* Таблица теперь может скроллиться отдельно */
+    }
+
+    table {
+        min-width: auto !important; /* Убираем жесткий лимит в 650px */
+        width: 100% !important;
+    }
+
+    th, td {
+        padding: 8px 4px !important; /* Сжимаем отступы */
+        font-size: 0.85rem !important;
+    }
 }
